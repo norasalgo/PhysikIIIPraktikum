@@ -86,13 +86,13 @@ meanUplus = np.mean(Uplus)
 meanUminus = np.mean(Uminus)
 
 U = (meanUplus+meanUminus) / 2
-
+errU = 0        #Wie machtmerdas??
 """Drehachse in cm"""
 
 s=[22.95, 23.0, 23.1, 23.05, 22.95]
 s=np.array(s)*10*-2
 S=np.mean(s)
-
+errS=np.std(s)
 
 #------------------------Funktionen------------------
 
