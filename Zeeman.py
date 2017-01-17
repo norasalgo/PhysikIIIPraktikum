@@ -2,7 +2,7 @@
 """
 Created on Tue Jan 17 13:16:03 2017
 
-@author: Nora Hoi
+@author: Nora
 """
 
 
@@ -10,46 +10,45 @@ import numpy as np
 import matplotlib.pyplot as plt
 from excelreadZeeman import machliste
 
-#-------------------------Daten---------------------
+#-------------------------Farbe---------------------
 
-"""Spannungsmessung Flipspule"""
-Uplus=4.303	
-Uminus=4.235
-U=(Uplus+Uminus)/2
+farbe = y
 
-"""Abstand Drehpunkt zu Drehachse, in cm"""
+if farbe == y:
+    lam0 = 585.249e-9
+    n0 = 1.5145
+    
+    A2plus = np.array([11.35, 11.36, 11.31, 11.29])*10**(-3)
+    A2 = np.array([11.26, 11.16, 11.14, 11.13])*10**(-3)
+    A2minus = np.array([10.86, 10.87, 10.77, 10.8])*10**(-3)
 
-s=[22.95, 23.0, 23.1, 23.05, 22.95]
-s=np.array(s)
+    A1plus = np.array([9.2, 9.15, 9.12, 9.07])*10**(-3)
+    A1 = np.array([9.01, 8.95, 8.9, 8.92])*10**(-3)
+    A1minus = np.array([8.56, 8.57, 8.47, 8.46])*10**(-3)
 
-mean_s=np.mean(s)
-error_s=np.std(s)
+    A0plus = np.array([6.27, 6.26, 6.26, 6.19])*10**(-3)
+    A0 = np.array([6.0, 6.05, 5.85, 5.86])*10**(-3)
+    A0minus= np.array([5.34, 5.24, 5.25, 5.26])*10**(-3)
+    
+elif farbe == b:
+    lam0 = 540.056e-9
+    n0 = 1.5172
+    
+    A2plus = np.array([11.14, 11.07, 11.06, 11.05])*10**(-3)
+    A2 = np.array([10.91, 10.85, 10.9, 10.86])*10**(-3)
+    A2minus = np.array([10.6, 10.58, 10.54, 10.53])*10**(-3)
 
-#------------------------Gelb--------------------
-"""Abstand Zwischen Spektrallinien A"""
-A2plus = np.array([11.35, 11.36, 11.31, 11.29, 11.14, 11.07, 11.06, 11.05])
-A2 = np.array([11.26, 11.16, 11.14, 11.13, 10.91, 10.85, 10.9, 10.86])
-A2minus = np.array([10.86, 10.87, 10.77, 10.8, 10.6, 10.58, 10.54, 10.53])
+    A1plus = np.array([9.08, 9.07, 9.05, 9.02])*10**(-3)
+    A1 = np.array([8.8, 8.75, 8.71, 8.76])*10**(-3)
+    A1minus = np.array([8.34, 8.29, 8.28, 8.21])*10**(-3)
 
-A1plus = np.array([9.2, 9.15, 9.12, 9.07, 9.08, 9.07, 9.05, 9.02])
-A1 = np.array([9.01, 8.95, 8.9, 8.92, 8.8, 8.75, 8.71, 8.76])
-A1minus = np.array([8.56, 8.57, 8.47, 8.46, 8.34, 8.29, 8.28, 8.21])
+    A0plus = np.array([6.5, 6.42, 6.42, 6.35])*10**(-3)
+    A0 = np.array([6.03, 5.97, 5.97, 5.91])*10**(-3)
+    A0minus= np.array([5.29, 5.21, 5.14, 5.11])*10**(-3)
 
-A0plus = np.array([6.27, 6.26, 6.26, 6.19, 6.5, 6.42, 6.42, 6.35])
-A0 = np.array([6.0, 6.05, 5.85, 5.86, 6.03, 5.97, 5.97, 5.91])
-A0minus= np.array([5.34, 5.24, 5.25, 5.26, 5.29, 5.21, 5.14, 5.11])
 
-A2plus *= 10**(-3)
-A2 *= 10**(-3)
-A2minus *= 10**(-3)
 
-A1plus *= 10**(-3)
-A1 *= 10**(-3)
-A1minus *= 10**(-3)
-
-A0plus *= 10**(-3)
-A0 *= 10**(-3)
-A0minus *= 10**(-3)
+#-------------------------A berechnen---------------------
 
 meanA2plus = np.mean(A2plus)
 meanA2 = np.mean(A2)
@@ -75,8 +74,20 @@ errA0plus = np.std(A0plus)
 errA0 = np.std(A0)
 errA0minus = np.std(A0minus)
 
-#------------------------Blau-----------
 
+
+#-------------------------Daten---------------------
+
+"""Spannungsmessung Flipspule"""
+Uplus=4.303	
+Uminus=4.235
+U=(Uplus+Uminus)/2
+
+"""Drehachse in cm"""
+
+s=[22.95, 23.0, 23.1, 23.05, 22.95]
+s=np.array(s)
+S=np.mean(s)
 
 
 #------------------------Funktionen------------------
@@ -159,3 +170,126 @@ lande=gj(dnu,B,h,muB,deltamj)
 
 
 print(theta2plus, theta2minus, lam0gelb, M, n0, dn, c, d)
+
+
+#-------------------------Ableitungen---------------------
+
+def dthetadA(A,S):
+    return 2*S/(A**2+(2*S)**2)
+
+def dthetadS(A,S):
+    return -2*A/(A**2+(2*S)**2)
+
+def dMdd(d,n0,theta,lam0):
+    return 2/lam0 * (n0**2-1+(np.sin(theta))**2)**(1/2)
+
+def dMdn0(d,n0,theta,lam0):
+    return 2*d*n0/lam0 * (n0**2-1+(np.sin(theta))**2)**(-1/2)
+
+def dMdtheta(d,n0,theta,lam0):
+    return d*np.sin(2*theta)/lam0 * (n0**2-1+(np.sin(theta))**2)**(-1/2)
+
+def dnudthetaplus(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return -c*np.sin(2*thetaplus)/lam0**2 * (lam0*M**2/d**2-4*n0*dn)**(-1)
+
+def dnudthetaminus(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return c*np.sin(2*thetaminus)/lam0**2 * (lam0*M**2/d**2-4*n0*dn)**(-1)
+
+def dnudM(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return c*((np.sin(thetaplus))**2-(np.sin(thetaminus))**2)/lam0 * 2*M/d**2 * (lam0*M**2/d**2-4*n0*dn)**(-2)
+
+def dnudd(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return -c*((np.sin(thetaplus))**2-(np.sin(thetaminus))**2)/lam0 * 2*M**2/d**3 * (lam0*M**2/d**2-4*n0*dn)**(-2)
+
+def dnudn0(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return -c*((np.sin(thetaplus))**2-(np.sin(thetaminus))**2)/lam0**2 * 4*dn * (lam0*M**2/d**2-4*n0*dn)**(-2)
+
+def dnuddn(thetaplus,thetaminus,M,d,n0,dn,c,lam0):
+    return -c*((np.sin(thetaplus))**2-(np.sin(thetaminus))**2)/lam0**2 * 4*n0 * (lam0*M**2/d**2-4*n0*dn)**(-2)
+
+def dBdU(U,A,N):
+    return 1/(314.16*A*N)
+
+def dBdA(U,A,N):
+    return -U/(314.16*A**2*N)
+
+def dgdnu(deltanu,muB,B,deltamj):
+    return h/(muB*B*deltamj)
+
+def dgdB(deltanu,muB,B,deltamj):
+
+
+
+#-------------------------Fehler---------------------
+
+def uA(ux):
+    return np.sqrt((ux*1)**2+(ux*(-1))**2)
+
+def utheta(A,S,uA,uS):
+    dA = dthetadA(A,S)
+    dS = dthetadS(A,S)
+    return np.sqrt((uA*dA)**2+(uS*dS)**2)
+
+def uM(d,n0,theta,lam0,ud,un0,utheta):
+    dd = dMdd(d,n0,theta,lam0)
+    dn0 = dMdn0(d,n0,theta,lam0)
+    dtheta = dMdtheta(d,n0,theta,lam0)
+    return np.sqrt((ud*dd)**2+(un0*dn0)**2+(utheta*dtheta)**2)
+
+def unu(thetaplus,thetaminus,M,d,n0,dn,c,lam0,uthetaplus,uthetaminus,uM,ud,un0,udn):
+    dthetaplus = dnudthetaplus(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    dthetaminus = dnudthetaminus(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    dM = dnudM(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    dd = dnudd(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    dn0 = dnudn0(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    ddn = dnuddn(thetaplus,thetaminus,M,d,n0,dn,c,lam0)
+    return np.sqrt((uthetaplus*dthetaplus)**2+(uthetaminus*dthetaminus)**2+(uM*dM)**2+(ud*dd)**2+(un0*dn0)**2+(udn*ddn)**2)
+
+def uB(U,F,N,uU,uF):
+    dU = dBdU(U,F,N)
+    dA = dBdA(U,F,N)
+    return np.sqrt((uU*dU)**2+(uF*dF)**2)
+
+def ug(deltanu,muB,B,deltamj,unu,uB):
+    dnu = dgdnu(deltanu,muB,B,deltamj)
+    dB = dgdB(deltanu,muB,B,deltamj)
+    return np.sqrt((unu*dnu)**2+(uB*dB)**2)
+
+
+
+#-------------------------Fehlerrechnung---------------------
+
+ux = 5e-6
+uS = np.std(s)
+ud = 1e-6
+un0 = 1e-4
+udn =
+uU =
+uA = uA(ux)
+uF = np.pi*(3e-5)**2
+
+utheta0 = utheta(A0,S,uA,uS)
+utheta0plus = utheta(A0plus,S,uA,uS)
+utheta0minus = utheta(A0minus,S,uA,uS)
+
+utheta1 = utheta(A1,S,uA,uS)
+utheta1plus = utheta(A1plus,S,uA,uS)
+utheta1minus = utheta(A1minus,S,uA,uS)
+
+utheta2 = utheta(A2,S,uA,uS)
+utheta2plus = utheta(A2plus,S,uA,uS)
+utheta2minus = utheta(A2minus,S,uA,uS)
+
+uM0 = uM(d,n0,theta0,lam0,ud,un0,utheta0)
+uM1 = uM(d,n0,theta1,lam0,ud,un0,utheta1)
+uM2 = uM(d,n0,theta2,lam0,ud,un0,utheta2)
+
+unu0 = unu(theta0plus,theta0minus,M0,d,n0,dn,c,lam0,utheta0plus,utheta0minus,uM0,ud,un0,udn)
+unu1 = unu(theta1plus,theta1minus,M1,d,n0,dn,c,lam0,utheta1plus,utheta1minus,uM1,ud,un0,udn)
+unu2 = unu(theta2plus,theta2minus,M2,d,n0,dn,c,lam0,utheta2plus,utheta2minus,uM2,ud,un0,udn)
+
+uB = uB(U,F,N,uU,uF)
+
+ug0 = ug(deltanu0,muB,B0,deltamj,unu0,uB)
+ug1 = ug(deltanu1,muB,B1,deltamj,unu1,uB)
+ug2 = ug(deltanu2,muB,B2,deltamj,unu2,uB)
