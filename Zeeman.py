@@ -123,9 +123,6 @@ def gj(deltanu,B,h,muB,deltamj):
 S=mean_s* 10**(-2)
 
 d=3.213*10**(-3)
-n0=1.5144
-lam0gelb=585.249*10**(-9)
-
 dn=-(1.525-1.510)/(685-400)*10**9
 c=2.99*10**8
 
@@ -157,19 +154,23 @@ theta0minus = theta(meanA0minus,S)
 
 """M"""
 
-M2 = Ordnung(d,n0,lam0gelb, theta2)
-M1 = Ordnung(d,n0,lam0gelb, theta1)
-M0 = Ordnung(d,n0,lam0gelb, theta0)
+M2 = Ordnung(d,n0,lam0, theta2)
+M1 = Ordnung(d,n0,lam0, theta1)
+M0 = Ordnung(d,n0,lam0, theta0)
 
 """deltanu"""
-dnu=deltanu(theta2plus,theta2minus, lam0gelb, M2, n0, dn, c, d)
+dnu2 = deltanu(theta2plus,theta2minus, lam0, M2, n0, dn, c, d)
+dnu1 = deltanu(theta1plus,theta1minus, lam0, M2, n0, dn, c, d)
+dnu0 = deltanu(theta0plus,theta0minus, lam0, M2, n0, dn, c, d)
 
-B=BFeld(U,a,N)
+B = BFeld(U,a,N)
 
-lande=gj(dnu,B,h,muB,deltamj)
+lande2 = gj(dnu2,B,h,muB,deltamj)
+lande1 = gj(dnu1,B,h,muB,deltamj)
+lande0 = gj(dnu0,B,h,muB,deltamj)
 
 
-print(theta2plus, theta2minus, lam0gelb, M, n0, dn, c, d)
+print(lande2,lande1,lande0)
 
 
 #-------------------------Ableitungen---------------------
