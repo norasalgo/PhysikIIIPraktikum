@@ -89,17 +89,17 @@ def theta(A,S):
     
 """Ordnung des Hauptmaximum M"""
 
-def Ordnung(d,n0,lam, theta):  #d = Dicke der Lummerplatte, n0 = brechungsindex der Lummerplatte 
-                        #lam=wellenlänge unabgelenkt theta= winkel unabgelenkt
-    return 2*d/lam*np.sqrt(n0**2-1+(np.sin(theta))**2)
+def Ordnung(d,n0,lam0, theta):  #d = Dicke der Lummerplatte, n0 = brechungsindex der Lummerplatte 
+                                #lam=wellenlänge unabgelenkt theta= winkel unabgelenkt
+    return 2*d/lam0*np.sqrt(n0**2-1+(np.sin(theta))**2)
     
 """Frequenzänderung Deltanu  durch Zeemanaufspaltung"""
 def deltanu(thetaplus, thetaminus, lam0, M, n0, dn, c, d): #la
-    return -c/lam0**2*(np.sin(thetaplus)**2-np.sin(thetaplus)**2)/(lam0*M**2/d**2-4*n0*dn)
+    return -c/lam0**2*(np.sin(thetaplus)**2-np.sin(thetaminus)**2)/(lam0*M**2/d**2-4*n0*dn)
     
 """B Feld"""
-def BFeld(U,a,N):               #U=gemessene Spannung, a=Fläche der Spule N = Anzahl Wicklungen
-    return U/(314.16*a*N)
+def BFeld(U,F,N):               #U=gemessene Spannung, F=Fläche der Spule N = Anzahl Wicklungen
+    return U/(314.16*F*N)
 
     
 """Lande'sche g-Faktor"""
@@ -157,4 +157,5 @@ B=BFeld(U,a,N)
 
 lande=gj(dnu,B,h,muB,deltamj)
 
-print(theta2plus,theta2minus, lam0gelb, M2, n0, dn, c, d)
+
+print(theta2plus, theta2minus, lam0gelb, M, n0, dn, c, d)
