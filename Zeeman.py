@@ -11,10 +11,11 @@ import matplotlib.pyplot as plt
 from excelreadZeeman import machliste
 
 #-------------------------Farbe---------------------
+#Gelb=1, Blau=0
 
-farbe = y
+farbe = 1
 
-if farbe == y:
+if farbe == 1:
     lam0 = 585.249e-9
     n0 = 1.5145
     
@@ -30,7 +31,7 @@ if farbe == y:
     A0 = np.array([6.0, 6.05, 5.85, 5.86])*10**(-3)
     A0minus= np.array([5.34, 5.24, 5.25, 5.26])*10**(-3)
     
-elif farbe == b:
+elif farbe == 0:
     lam0 = 540.056e-9
     n0 = 1.5172
     
@@ -86,7 +87,7 @@ U=(Uplus+Uminus)/2
 """Drehachse in cm"""
 
 s=[22.95, 23.0, 23.1, 23.05, 22.95]
-s=np.array(s)
+s=np.array(s)*10*-2
 S=np.mean(s)
 
 
@@ -120,7 +121,7 @@ def gj(deltanu,B,h,muB,deltamj):
 
 #-----------Berechnungen----------
 
-S=mean_s* 10**(-2)
+
 
 d=3.213*10**(-3)
 dn=-(1.525-1.510)/(685-400)*10**9
