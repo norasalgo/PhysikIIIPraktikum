@@ -80,9 +80,12 @@ errA0minus = np.std(A0minus)
 #-------------------------Daten---------------------
 
 """Spannungsmessung Flipspule"""
-Uplus=4.303	
-Uminus=4.235
-U=(Uplus+Uminus)/2
+Uplus = np.array([4.3, 4.27, 4.29, 4.32, 4.31, 4.29, 4.33, 4.27, 4.34, 4.31])
+Uminus = np.array([[4.24, 4.23, 4.22, 4.24, 4.22, 4.24, 4.24, 4.24, 4.24, 4.24]])
+meanUplus = np.mean(Uplus)
+meanUminus = np.mean(Uminus)
+
+U = (meanUplus+meanUminus) / 2
 
 """Drehachse in cm"""
 
