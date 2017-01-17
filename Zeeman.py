@@ -2,7 +2,7 @@
 """
 Created on Tue Jan 17 13:16:03 2017
 
-@author: Nora
+@author: Nora Hoi
 """
 
 
