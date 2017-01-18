@@ -15,7 +15,7 @@ def dndlam(n,lam):
     for i in range(2):
         dn = (n[i]-n0)/(lam0-lam[i])*10**9
         a.append(dn)
-    sigma = a[0]-np.mean(a)
+    sigma = abs(a[0]-np.mean(a))
     return np.mean(a),sigma
 
 if colour == 0:
