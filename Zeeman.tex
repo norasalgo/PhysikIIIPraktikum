@@ -1,0 +1,214 @@
+%Layout: Kopf- und Fusszeilen
+\documentclass[12pt,a4paper]{article} %Schriftgrösse
+\usepackage[german,english,ngerman]{babel} %ansonsten "ngerman"
+\selectlanguage{ngerman}
+
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=4cm]{geometry} \setlength{\headsep}{1.5cm}\usepackage{scrpage2}
+\pagestyle{scrheadings}
+
+\ihead{Praktikumsbericht, Physik III}\chead{} \ohead{Zeeman-Effekt} \cfoot{\thepage} %Kopfzeile,Fusszeile
+\setheadsepline{0.2pt}\setheadtopline{0.2pt} 
+\renewcommand{\baselinestretch}{1.25} %Zeilenabstand
+\setlength{\parindent}{0pt} %verhindert Absatzeinzug
+\setlength{\parskip}{0pt} %verhindert Absatzabstand
+\usepackage[normalem]{ulem} %Unterstreichungen möglich
+\usepackage{setspace}
+
+%Sprachwahl (Umlaute)
+\usepackage[T1]{fontenc} %Schriftencoding
+\usepackage[utf8]{inputenc}%input encoding
+
+\usepackage{graphicx} %Bilder einbinden %\graphicspath{{_Bilder}}
+\usepackage{amsmath} %Gleichheitszeichen untereinander
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+%\usepackage{here}
+\usepackage{floatflt} %damit Text neben Bildern
+\usepackage{mathtools}
+\usepackage{mathptmx} %für Fonts
+\usepackage{array}
+\usepackage{pgf}
+\usepackage{pifont}
+\usepackage{tikz}
+%\usepackage[pdftex]{hyperref}
+%\hypersetup{bookmarks=false,colorlinks=true}
+\usepackage{url}
+\usepackage{enumitem} %damit Abstand bei Aufzählung veränderbar
+
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+                     \hbox{\scriptsize.}\hbox{\scriptsize.}}}% ":= schöner"
+                     =}
+
+%*********************************************************************
+\begin{document}
+%Titelseite
+\begin{titlepage} \begin{figure}[h] \hfill \includegraphics[scale=0.04]{uzh.png} \end{figure}
+\vspace{2 cm}
+\textbf{\large{Praktikumsbericht, Physik III}} \\ \vspace{1 cm} \\ \textbf{\huge{Zeeman-Versuch}} \\ \normalsize \\ \vspace{1 cm}
+\par
+\begingroup
+\leftskip 0 cm
+\rightskip\leftskip
+\textbf{Modul:}\\ PHY131 \\ \\
+\textbf{Assistent:}\\ Josef Roos (jroos@physik.uzh.ch)\\ \\
+\textbf{Studierende:}\\
+Laura Burri (lauradaniela.burri@uzh.ch)\\
+Nora Salgo (nora.salgo@uzh.ch)\\
+Fabian Stäger (fabian.staeger@uzh.ch) \\ \\
+\textbf{Datum des Experiments:}\\ 16.01.2017 \\ \\
+\par \endgroup \end{titlepage} \clearpage
+
+%Einleitung
+\newpage
+\tableofcontents
+\newpage
+\section{Einleitung}
+\subsection{Theoretische Vorüberlegungen}
+
+
+\begin{align}
+\Delta E = h \Delta \nu = g_J \mu_B B \Delta m_J \Longrightarrow g_J=\frac{h\Delta \nu}{\mu_B B \Delta m_J}
+\end{align}
+
+Für die verschobenen Linien ist:
+\begin{align}
+\Delta m_J = 1
+\end{align}
+
+Theoretische Erwartungen für den Fall reiner LS-Kopplung oder reiner jj-Kopplung\footnote{Herleitung siehe Praktikumsanleitung S. 7-8}:
+\begin{align}
+g_{J,\text{gelb}}^{LS} &= 1 \hspace{3cm} g_{J,\text{gelb}}^{jj} = 1 \\
+g_{J,\text{blau-grün}}^{LS} &= \frac{3}{2} \hspace{3cm} g_{J,\text{gelb}}^{jj} = 1
+\end{align}
+In Wirklichkeit tritt bei Atomen aber sowohl LS-, als auch jj-Kopplung auf. Die Tendenz, zu welcher Kopplung ein Atom eher neigt, ist elementspezifisch. Leichtere Elemente tendieren eher zu LS-, schwerere Atome eher zu jj-Kopplung. Da Neon eine Ordnungszahl von $Z=10$ hat, also verhältnismässig leicht, aber doch einiges schwerer als das Wasserstoffatom ist, erwarten wir, dass Neon sowohl LS- als auch jj-Kopplung zeigt. Der empirisch bestimmte g-Faktor sollte demnach zwischen den theoretischen Werten für die LS-/jj-Kopplung liegen.
+
+
+\subsection{Experimenteller Aufbau}
+Lummer-Gehrcke-Platte
+\begin{align}
+\Theta = \arctan\left(\frac{A}{2S}\right)
+\end{align}
+
+Die Ordnungszahl $M$ des jeweils beobachteten Intensitätsmaximums bei einem Beobachtungswinkel, symbolisiert durch $\Theta_M^{\lambda}$, ergibt sich aus:
+\begin{align}
+M = \frac{2d}{\lambda} \sqrt{n^2-1+\sin^2(\theta_M^{\lambda})}
+\end{align}
+Der Brechungsindex $n_{\lambda}$ der Lummer-Gehrcke-Platte hängt dabei von der Wellenlänge ab. Er wurde grafisch (siehe Abschnitt \ref{Diagramm}) für die jeweiligen Wellenlängen zu folgenden Werten bestimmt:
+\begin{align}
+n_{\text{gelb}} = 1.5146 \pm 0.0001 \hspace{1cm} n_{\text{blau-grün}} = 1.5172 \pm 0.0001 \label{n}
+\end{align}
+
+
+Die Frequenzverschiebung nach oben bzw. unten ist symmetrisch und lässt sich folgendermassen berechnen:
+\begin{align}
+\Delta\nu = -\frac{c}{\lambda_0^2}\frac{\sin^2(\Theta_M^{\lambda_0+\Delta\lambda})-\sin^2(\Theta_M^{\lambda_0-\Delta\lambda})}{\frac{\lambda_0 M^2}{d^2} -4n_0 \frac{\partial n}{\partial \lambda}\bigg\vert_{\lambda_0}}
+\end{align}
+
+Folgende Grössen sind gegeben und werden als fehlerfrei betrachtet:
+\begin{footnotesize} \begin{singlespace}
+		\begin{align}
+		\text{Flipspule:} \hspace{2.8 cm} N &=127 \hspace{2.7cm} \text{Windungszahl} \\
+			d_K &= 19.98 mm \hspace{1.93cm}\text{Durchmesser der Kreisfläche} \\
+			d_D &= 0.06 mm \hspace{2.1cm}\text{Durchmesser des Drahtes} \\
+		\text{Wellenlängen:} \hspace{1.8 cm} \lambda_{\text{gelb}} &= 585.249 nm \\
+		\lambda_{\text{blau-grün}} &= 540.056 nm \label{Wellenlängen} \\
+		\text{Lummerspektrometer:} \hspace{1cm}d_L &= (3.213\pm0.001)mm \hspace{0.5cm}\text{Dicke der Lummerplatte}
+		\end{align} \end{singlespace} \end{footnotesize}
+
+Die Grösse des Magnetfeldes wird anhand einer Flipspule bestimmt. Dabei wird eine Spule in die Mitte der Polschuhe des Magnetfeldes gehalten und dann aus dem Magnetfeld herausgezogen. Die magnetische Flussdichte durch die von der Spule umschlossene Fläche $A$ nimmt dabei ab. Gemäss dem Faraday'schen Induktionsgesetz induziert dies eine Spannung in der Spule, welche von einem Spannungsintegrator gemessen wird. Daraus ergibt sich (unter Verwendung der Integrator-Proportionalitätsfaktors $K$) die Grösse des Magnetfeldes folgendermassen:
+\begin{align}
+B = \frac{U_{Int}}{K\cdot A\cdot N} \hspace{0.3cm} \text{mit} \hspace{0.3cm} K=\frac{1}{2\pi 50}
+\end{align}
+Die von der Spule umschlossene Fläche wird dabei pragmatisch als Kreisfläche des Durchmessers der Drahtauflage erweitert um die halbe Drahtdicke bestimmt, mit einem Fehler der halben Drahtdicke:
+\begin{align}
+A = R^2\pi \hspace{0.3cm} \text{mit} \hspace{0.3cm} R = \frac{1}{2}(d_K+d_D), \hspace{0.3cm} \sigma_R = \frac{d_D}{2}
+\end{align}
+
+\newpage
+\section{Messergebnisse}
+
+\begin{table}[h] \begin{center}
+		\begin{tabular}{|ll|} \hline
+			i & $S_{i} \ [cm]$  \\ \hline
+			1&  22.95\\ 
+			2&  23.00\\ 
+			3&  23.10\\ 
+			4&  23.05\\   
+			5&  22.95\\ \hline
+	\end{tabular} \end{center}
+	\caption{Messergebnisse für $S$ (Abstand Fernrohrdrehpunkt - Mikrometerschraube)}
+\end{table}
+
+
+
+\newpage
+\section{Datenanalyse}
+
+\newpage
+\section{Resultate}
+
+Unsere Ergebnisse:
+\begin{align*}
+g_{\text{gelb}} &=  \\
+g_{\text{blau-grün}} &= 
+\end{align*}
+
+Literaturwerte:
+\begin{align*}
+g_{\text{gelb}} &= 1.034 \\
+g_{\text{blau-grün}} &= 1.464
+\end{align*}
+
+\newpage
+\section{Anhang}
+\subsection{Diagramm des Brechungsindex}\label{Diagramm}
+\begin{center} \includegraphics[width=\textwidth]{brechungsindex1.jpg} \end{center}
+Aus diesem Diagramm lässt sich der Brechungsindex der Lummer-Gehrcke-Platte für die gegebenen Wellenlängen (Gl. \ref{Wellenlängen}) ablesen. Der Fehler des abgelesenen Wertes ergibt sich aus der Breite der farbig eingezeichneten Balken. Dies führt zu den Resultaten (Gl. \ref{n}).
+
+\newpage
+\begin{center} \includegraphics[width=\textwidth]{brechungsindex2.jpg} \end{center}
+
+Aus demselben Diagramm lässt sich auch die Steigung der Kurve an der Stelle der verlangten Wellenlängen bestimmen. Dazu wurde grafisch jeweils für $\lambda_{\text{gelb}}$, $\lambda_{\text{blau-grün}}$ eine maximal verträgliche steilste Gerade und eine flachste Gerade tangentiell angepasst und ihre Steigung berechnet:
+
+\begin{table}[h] \begin{center}
+		\begin{tabular}{|l|llll|ll|}\hline
+			Farbe & $n_{\text{steil}}$ & $n_{\text{flach}}$ & $\lambda_{\text{steil}}$ [nm] & $\lambda_{\text{flach}}$ [nm] & $\frac{\partial n}{\partial\lambda}_{\text{steil}}$ [$m^{-1}$] & $\frac{\partial n}{\partial\lambda}_{\text{flach}}$ [$m^{-1}$] \\ \hline
+			gelb & $1.5242$ & $1.5232$ & 673 & 684 & -52000 & -46000 \\
+			blau-grün & $1.5260$ & $1.5254$ & 651 & 660 & -64000 & -59000 \\ \hline
+	\end{tabular} \end{center}
+\end{table}
+
+Für die Steigung an der Stelle $\lambda$ wird der Mittelwert dieser Steigungen berechnet. Für den Fehler auf der Steigung wird die Abweichung des Mittelwerts der Steigung zur Steigung der flachsten / steilsten Gerade genommen.. Dies führt zu folgenden Resultaten:
+\begin{align}
+\frac{\partial n}{\partial \lambda}\bigg\vert_{\lambda_{\text{gelb}}} = (-49 \pm 3)\cdot 10^3 /m\\
+\frac{\partial n}{\partial \lambda}\bigg\vert_{\lambda_{\text{blau-grün}}} = (-61 \pm 2)\cdot 10^3/m
+\end{align}
+
+
+\newpage
+\subsection{Fehlerrechnung}
+
+
+
+
+%%%%%%%%%%%%
+\end{document}
+
+\begin{table}[h] \begin{center}
+		\begin{tabular}{p{0.7cm}|ll}
+		i & $x_{0i} \ [cm]$  \\ \hline
+		1&  23.90 $\pm$ 0.05\\ 
+		2&  23.95 $\pm$ 0.05\\ 
+		3&  24.00 $\pm$ 0.05\\ 
+		4&  23.95 $\pm$ 0.05\\   
+		5&  24.00 $\pm$ 0.05\\
+		\end{tabular} \end{center}
+	\end{table}
+
+\begin{center} \includegraphics[scale=0.14]{r-aufbau.jpeg} \end{center}
+
+\begin{floatingfigure}[r]{5 cm} \begin{flushleft} \includegraphics[scale=0.08]{r-spiral.jpeg} \end{flushleft} \end{floatingfigure}
+
+\begin{floatingfigure}[l]{8 cm} \begin{flushleft} \includegraphics[scale=0.17]{r-aufbau.jpeg} \end{flushleft} \end{floatingfigure}
+
