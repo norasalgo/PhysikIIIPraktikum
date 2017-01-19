@@ -89,7 +89,7 @@ err_L = 0.1e-3
 err_l = 2e-3
 err_T = np.std(T)
 err_epsilon = 0.0026
-err_alpha = 0
+err_alpha = np.sqrt(cov[0:1,0:1])
 err_a = 0.1e-3
 
 """Ableitungen"""
