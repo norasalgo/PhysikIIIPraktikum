@@ -7,7 +7,7 @@ Created on Wed Jan 18 13:40:34 2017
 
 import numpy as np
 import matplotlib.pyplot as plt
-from excelreadSternGerlach import machliste
+from scipy.optimize import curve_fit as curve_fit
 
 
 
