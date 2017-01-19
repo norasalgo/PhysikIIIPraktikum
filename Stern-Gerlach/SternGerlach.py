@@ -56,7 +56,13 @@ B=np.array(B)
 
 #__________________________Fit__________________________
 
-alpha,b = np.polyfit(B, q, 1)           #alpha = Steigung, b = y-Achsenabschnitt
+def f(x, alpha, b):
+    return x*alpha + b
+
+fitparam, cov = curve_fit(f, B, q, sigma = err_q, p0 = [0.00808425613302,-0.00034293204896])
+alpha, b = fitparam
+
+#alpha,b = np.polyfit(B, q, 1)           #alpha = Steigung, b = y-Achsenabschnitt
 #m2,b2 = np.polyfit(B2, q2, 1)
 
 
