@@ -20,7 +20,7 @@ if serie == 1:          #Set1 mit Ausreisser
     err_q = np.array([0.0349, 0.0343, 0.0268, 0.0217, 0.0137, 0.0103])*10**(-3)
 
     I = np.array([1000.0, 900.0, 800.0, 700.0, 500.0, 403.0])*10**(-3)
-    T = np.array([186.4, 185.0, 185.2, 185.6, 185.8, 185.9])+273
+    Tlist = np.array([186.4, 185.0, 185.2, 185.6, 185.8, 185.9])+273
 
     I2 = np.array([1000.0, 800.0, 700.0, 500.0, 403.0])*10**(-3)
     q2 = np.array([5.6536, 4.4131, 3.7338, 2.4297, 1.8257])*10**(-3)
@@ -30,7 +30,7 @@ elif serie == 2:        #Set 2, viel schöner :)
     err_q = np.array([0.0041,0.0032,0.0032,0.0029,0.0025,0.0015])*10**(-3)
     
     I = np.array([1000,900,800,700,600,402])*10**(-3)
-    T = np.array([187.5,186.7,186.5,186.5,186.3,184.1])+273
+    Tlist = np.array([187.5,186.7,186.5,186.5,186.3,184.1])+273
  
 #______________Berechnung B Feld_______________________
 
@@ -82,12 +82,12 @@ L = 7*10**(-2)
 l = 0.455
 a = 2.5 * 10**-(3)
 k = 1.381 * 10**(-23)
-meanT = np.mean(T)
+T = np.mean(Tlist)
 
 #___________________________Fehlerrechnung
 err_L = 0.1e-3
 err_l = 2e-3
-err_T = np.std(T)
+err_T = np.std(Tlist)
 err_epsilon = 0.0026
 err_alpha = np.sqrt(cov[0:1,0:1])
 err_a = 0.1e-3
@@ -126,6 +126,6 @@ def um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L):
 
 
 
-m = alpha*a*k*meanT*2/(epsilon*l*L*(1-L/(2*l))) 
+m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
 
 print(m)           
