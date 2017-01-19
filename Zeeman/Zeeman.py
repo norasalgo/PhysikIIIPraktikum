@@ -21,6 +21,7 @@ if farbe == 1:
     lam0 = 585.249e-9
     n0 = 1.5145
     un0 = 1e-4
+    dn = -49246.8
     udn = 2767.9
     
     print 'Farbe: Gelb'
@@ -40,6 +41,7 @@ elif farbe == 0:
     lam0 = 540.056e-9
     n0 = 1.5172
     un0 = 1e-4
+    dn = -61487.9
     udn = 2257.1
     
     print 'Farbe: Blau-Grün' 
@@ -61,14 +63,14 @@ elif farbe == 0:
 
 """Spannungsmessung Flipspule"""
 Uplus = np.array([4.3, 4.27, 4.29, 4.32, 4.31, 4.29, 4.33, 4.27, 4.34, 4.31])
-Uminus = np.array([[4.24, 4.23, 4.22, 4.24, 4.22, 4.24, 4.24, 4.24, 4.24, 4.24]])
+Uminus = np.array([4.24, 4.23, 4.22, 4.24, 4.22, 4.24, 4.24, 4.24, 4.24, 4.24])
 meanUplus = np.mean(Uplus)
 meanUminus = np.mean(Uminus)
 stdUplus = np.std(Uplus)
 stdUminus = np.std(Uminus)
 
 U = (meanUplus+meanUminus) / 2
-uU = (stdUplus + stdUminus) / 2
+uU = stdUplus
 
 
 """Drehachse in cm"""
@@ -112,10 +114,9 @@ def gj(deltanu,B,h,muB,deltamj):
 
 #-----------Berechnungen----------
 
-
+# Dicke Lummerplatte und Unsicherheit
 d=3.213*10**(-3)
 ud = 1e-6
-dn=-(1.525-1.510)/(685-400)*10**9
 c=2.99*10**8
 
 
@@ -123,7 +124,7 @@ spuledurchmesser=19.98*10**(-3)
 drahtdurchmesser=0.06*10**(-3)
 radius=spuledurchmesser/2+drahtdurchmesser/2
 F=radius**2*np.pi
-uF = np.pi*(drahtdurchmesser/2)**2
+uF = (np.pi*(spuledurchmesser/2+drahtdurchmesser)**2-np.pi*(spuledurchmesser/2)**2)
 N=127
 
 h=6.626 * 10**(-34)
@@ -132,6 +133,18 @@ deltamj=1
 
 
 """A"""
+
+uA2plus = np.std(A2plus)
+uA2 = np.std(A2)
+uA2minus = np.std(A2minus)
+
+uA1plus = np.std(A1plus)
+uA1 = np.std(A1)
+uA1minus = np.std(A1minus)
+
+uA0plus = np.std(A0plus)
+uA0 = np.std(A0)
+uA0minus = np.std(A0minus)
 
 A2plus = np.mean(A2plus)
 A2 = np.mean(A2)
@@ -145,17 +158,7 @@ A0plus = np.mean(A0plus)
 A0 = np.mean(A0)
 A0minus = np.mean(A0minus)
 
-uA2plus = np.std(A2plus)
-uA2 = np.std(A2)
-uA2minus = np.std(A2minus)
 
-uA1plus = np.std(A1plus)
-uA1 = np.std(A1)
-uA1minus = np.std(A1minus)
-
-uA0plus = np.std(A0plus)
-uA0 = np.std(A0)
-uA0minus = np.std(A0minus)
 
 
 
@@ -288,16 +291,16 @@ def ug(deltanu,muB,B,deltamj,unu,uB):
 #-------------------------Fehlerrechnung---------------------
 
 utheta0 = utheta(A0,S,uA0,uS)
-utheta0plus = utheta(A0plus,S,uA0,uS)
-utheta0minus = utheta(A0minus,S,uA0,uS)
+utheta0plus = utheta(A0plus,S,uA0plus,uS)
+utheta0minus = utheta(A0minus,S,uA0minus,uS)
 
 utheta1 = utheta(A1,S,uA1,uS)
-utheta1plus = utheta(A1plus,S,uA1,uS)
-utheta1minus = utheta(A1minus,S,uA1,uS)
+utheta1plus = utheta(A1plus,S,uA1plus,uS)
+utheta1minus = utheta(A1minus,S,uA1minus,uS)
 
 utheta2 = utheta(A2,S,uA2,uS)
-utheta2plus = utheta(A2plus,S,uA2,uS)
-utheta2minus = utheta(A2minus,S,uA2,uS)
+utheta2plus = utheta(A2plus,S,uA2plus,uS)
+utheta2minus = utheta(A2minus,S,uA2minus,uS)
 
 uM0 = uM(d,n0,theta0,lam0,ud,un0,utheta0)
 uM1 = uM(d,n0,theta1,lam0,ud,un0,utheta1)
