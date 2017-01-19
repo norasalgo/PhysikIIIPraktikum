@@ -77,8 +77,15 @@ l = 0.455
 a = 2.5 * 10**-(3)
 k = 1.381 * 10**(-23)
 
+#___________________________Fehlerrechnung
+err_L = 0.1e-3
+err_l = 2e-3
+err_T = np.std(T)
+err_epsilon = 0.0026
+err_alpha = 0
+err_a = 0.1e-3
 
-    
+
 m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
 
 print(m)           
