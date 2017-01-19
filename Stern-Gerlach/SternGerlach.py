@@ -92,6 +92,39 @@ err_epsilon = 0.0026
 err_alpha = 0
 err_a = 0.1e-3
 
+"""Ableitungen"""
+
+def dmdalpha(alpha,a,k,T,epsilon,l,L):
+    return 2*a*k*T/(epsilon*l*L*(1-l/(2*L)))
+
+def dmda(alpha,a,k,T,epsilon,l,L):
+    return 2*alpha*k*T/(epsilon*l*L*(1-l/(2*L)))
+
+def dmdT(alpha,a,k,T,epsilon,l,L):
+    return 2*alpha*a*k/(epsilon*l*L*(1-l/(2*L)))
+
+def dmdepsilon(alpha,a,k,T,epsilon,l,L):
+    return -2*alpha*a*k*T/(epsilon**2*l*L*(1-l/(2*L)))
+
+def dmdl(alpha,a,k,T,epsilon,l,L):
+    return 8*alpha*a*k*T*(l-L)/(epsilon*l**2*(2*L-l)**2)
+
+def dmdL(alpha,a,k,T,epsilon,l,L):
+    return -8*alpha*a*k*T/(epsilon*l*(2*L-l)**2)
+
+
+"""Fehler auf m"""
+
+def um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L):
+    dalpha = dmdalpha(alpha,a,k,T,epsilon,l,L)
+    da = dmda(alpha,a,k,T,epsilon,l,L)
+    dT = dmdT(alpha,a,k,T,epsilon,l,L)
+    depsilon = dmdepsilon(alpha,a,k,T,epsilon,l,L)
+    dl = dmdl(alpha,a,k,T,epsilon,l,L)
+    dL = dmdL(alpha,a,k,T,epsilon,l,L)
+    return np.sqrt((dalpha*err_alpha)**2 + (da*err_a)**2 + (dT*err_T)**2 + ( depsilon*err_epsilon)**2 + (dl*err_l)**2 + (dL*err_L)**2)
+
+
 
 m = alpha*a*k*meanT*2/(epsilon*l*L*(1-L/(2*l))) 
 
