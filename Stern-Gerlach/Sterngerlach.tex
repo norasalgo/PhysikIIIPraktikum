@@ -1,0 +1,118 @@
+%Layout: Kopf- und Fusszeilen
+\documentclass[12pt,a4paper]{article} %Schriftgrösse
+\usepackage[german,english,ngerman]{babel} %ansonsten "ngerman"
+\selectlanguage{ngerman}
+
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=4cm]{geometry} \setlength{\headsep}{1.5cm}\usepackage{scrpage2}
+\pagestyle{scrheadings}
+
+\ihead{Praktikumsbericht, Physik III}\chead{} \ohead{Zeeman-Effekt} \cfoot{\thepage} %Kopfzeile,Fusszeile
+\setheadsepline{0.2pt}\setheadtopline{0.2pt} 
+\renewcommand{\baselinestretch}{1.25} %Zeilenabstand
+\setlength{\parindent}{0pt} %verhindert Absatzeinzug
+\setlength{\parskip}{0pt} %verhindert Absatzabstand
+\usepackage[normalem]{ulem} %Unterstreichungen möglich
+\usepackage{setspace}
+
+%Sprachwahl (Umlaute)
+\usepackage[T1]{fontenc} %Schriftencoding
+\usepackage[utf8]{inputenc}%input encoding
+
+\usepackage{graphicx} %Bilder einbinden %\graphicspath{{_Bilder}}
+\usepackage{amsmath} %Gleichheitszeichen untereinander
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+%\usepackage{here}
+\usepackage{floatflt} %damit Text neben Bildern
+\usepackage{mathtools}
+\usepackage{mathptmx} %für Fonts
+\usepackage{array}
+\usepackage{pgf}
+\usepackage{pifont}
+\usepackage{tikz}
+%\usepackage[pdftex]{hyperref}
+%\hypersetup{bookmarks=false,colorlinks=true}
+\usepackage{url}
+\usepackage{enumitem} %damit Abstand bei Aufzählung veränderbar
+
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+                     \hbox{\scriptsize.}\hbox{\scriptsize.}}}% ":= schöner"
+                     =}
+
+%*********************************************************************
+\begin{document}
+%Titelseite
+\begin{titlepage} \begin{figure}[h] \hfill \includegraphics[scale=0.04]{uzh.png} \end{figure}
+\vspace{2 cm}
+\textbf{\large{Praktikumsbericht, Physik III}} \\ \vspace{1 cm} \\ \textbf{\huge{Zeeman-Versuch}} \\ \normalsize \\ \vspace{1 cm}
+\par
+\begingroup
+\leftskip 0 cm
+\rightskip\leftskip
+\textbf{Modul:}\\ PHY131 \\ \\
+\textbf{Assistent:}\\ Ruth (@physik.uzh.ch)\\ \\
+\textbf{Studierende:}\\
+Laura Burri (lauradaniela.burri@uzh.ch)\\
+Nora Salgo (nora.salgo@uzh.ch)\\
+Fabian Stäger (fabian.staeger@uzh.ch) \\ \\
+\textbf{Datum des Experiments:}\\ 18.01.2017 \\ \\
+\par \endgroup \end{titlepage} \clearpage
+
+%Einleitung
+\newpage
+\tableofcontents
+\newpage
+\section{Einleitung}
+\subsection{Theoretische Vorüberlegungen}
+
+
+\newpage
+\section{Messergebnisse}
+
+Werte von Fit für q
+\begin{table}[h] \begin{center}
+		\begin{tabular}{|lll|} \hline
+			T [$^{\circ}$C] & I [mA] & q [mm]\\ \hline
+			$185.9$ & $403$ & $1.8257 \pm 0.0103$\\
+			$185.8$ & $500$ & $2.4297 \pm 0.0137$ \\
+			$185.6$ & $700$ & $3.7338 \pm 0.0217$ \\
+			$185.2$ & $800$ & $4.4131 \pm 0.0268$\\
+			$185.0$ & $900$ & $5.8741 \pm 0.0343$\\
+			$186.4$ & $1000$ & $5.6536 \pm 0.0349$ \\ \hline
+	\end{tabular} \end{center}
+\caption{q-Werte}
+\end{table}
+
+
+
+
+\newpage
+\section{Anhang}
+
+\newpage
+\subsection{Fehlerrechnung}
+
+
+
+
+%%%%%%%%%%%%
+\end{document}
+
+\begin{table}[h] \begin{center}
+		\begin{tabular}{p{0.7cm}|ll}
+		i & $x_{0i} \ [cm]$  \\ \hline
+		1&  23.90 $\pm$ 0.05\\ 
+		2&  23.95 $\pm$ 0.05\\ 
+		3&  24.00 $\pm$ 0.05\\ 
+		4&  23.95 $\pm$ 0.05\\   
+		5&  24.00 $\pm$ 0.05\\
+		\end{tabular} \end{center}
+	\end{table}
+
+\begin{center} \includegraphics[scale=0.14]{r-aufbau.jpeg} \end{center}
+
+\begin{floatingfigure}[r]{5 cm} \begin{flushleft} \includegraphics[scale=0.08]{r-spiral.jpeg} \end{flushleft} \end{floatingfigure}
+
+\begin{floatingfigure}[l]{8 cm} \begin{flushleft} \includegraphics[scale=0.17]{r-aufbau.jpeg} \end{flushleft} \end{floatingfigure}
+
