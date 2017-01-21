@@ -94,6 +94,8 @@ err_a = 0.1e-3
 
 """Ableitungen"""
 
+
+
 def dmdalpha(alpha,a,k,T,epsilon,l,L):
     return 2*a*k*T/(epsilon*l*L*(1-l/(2*L)))
 
@@ -112,6 +114,21 @@ def dmdl(alpha,a,k,T,epsilon,l,L):
 def dmdL(alpha,a,k,T,epsilon,l,L):
     return -8*alpha*a*k*T/(epsilon*l*(2*L-l)**2)
 
+def dBdc():
+    return  1
+
+def dBda1(I):
+    return I
+
+def dBda2(I):
+    return I**2
+    
+def dBda3(I):
+    return I**3
+    
+def dBdI(a1,a2,a3,I):
+    return a1 + 2*a2*I + 3*a3*I**2
+    
 
 """Fehler auf m"""
 
@@ -124,6 +141,15 @@ def um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L):
     dL = dmdL(alpha,a,k,T,epsilon,l,L)
     return np.sqrt((dalpha*err_alpha)**2 + (da*err_a)**2 + (dT*err_T)**2 + ( depsilon*err_epsilon)**2 + (dl*err_l)**2 + (dL*err_L)**2)
 
+"""Fehler auf B"""
+
+def uB (c,a1,a2,a3,I,err_c, err_a1, err_a2, err_a3, err_I):
+    dc = dBdc(I)
+    da1 = dBda1(I)
+    da2 = dBda2(I)
+    da3 = dBda3(I)
+    dI = dBdI(a1,a2,a3,I)
+    return np.sqrt((dc*err_c)**2 + (da1 * err_a1)**2 + (da2 * err_a2)**2 + (da3 * err_a3)**2 + (dI * err_I)**2)
 
 
 m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
