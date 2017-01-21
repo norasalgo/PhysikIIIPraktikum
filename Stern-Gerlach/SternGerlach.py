@@ -32,6 +32,7 @@ elif serie == 2:        #Set 2, viel schöner :)
     I = np.array([1000,900,800,700,600,402])*10**(-3)
     Tlist = np.array([187.5,186.7,186.5,186.5,186.3,184.1])+273
  
+ 
 #______________Berechnung B Feld_______________________
 
 def BFeld(I):
@@ -53,49 +54,10 @@ B=np.array(B)
 #    B2.append(b)    
 #B2=np.array(B2)
 
-
-#__________________________Fit__________________________
-
-def f(x, alpha, b):
-    return x*alpha + b
-
-fitparam, cov = curve_fit(f, B, q, sigma = err_q, p0 = [0.00808425613302,-0.00034293204896])
-alpha, b = fitparam
-
-#alpha,b = np.polyfit(B, q, 1)           #alpha = Steigung, b = y-Achsenabschnitt
-#m2,b2 = np.polyfit(B2, q2, 1)
-
-
-#__________________________Plot_________________________
-plt.figure()
-plt.plot(B,alpha*B+b)
-plt.errorbar(B,q,yerr=err_q,  fmt='x')
-#plt.plot(B2,m2*B2+b2)
-plt.xlabel("Magnet Feld")
-plt.ylabel("q")
-plt.show()
-
-#_________________________Konstanten_______________________
-epsilon = 0.953
-err_epsilon = 0.0026
-L = 7*10**(-2)
-l = 0.455
-a = 2.5 * 10**-(3)
-k = 1.381 * 10**(-23)
-T = np.mean(Tlist)
-
-#___________________________Fehlerrechnung
-err_L = 0.1e-3
-err_l = 2e-3
-err_T = np.std(Tlist)
-err_epsilon = 0.0026
-err_alpha = np.sqrt(cov[0:1,0:1])
-err_a = 0.1e-3
-
+#___________________Fehlerrechung________________________________
+ 
+ 
 """Ableitungen"""
-
-
-
 def dmdalpha(alpha,a,k,T,epsilon,l,L):
     return 2*a*k*T/(epsilon*l*L*(1-l/(2*L)))
 
@@ -144,7 +106,7 @@ def um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L):
 """Fehler auf B"""
 
 def uB (c,a1,a2,a3,I,err_c, err_a1, err_a2, err_a3, err_I):
-    dc = dBdc(I)
+    dc = dBdc()
     da1 = dBda1(I)
     da2 = dBda2(I)
     da3 = dBda3(I)
@@ -152,6 +114,69 @@ def uB (c,a1,a2,a3,I,err_c, err_a1, err_a2, err_a3, err_I):
     return np.sqrt((dc*err_c)**2 + (da1 * err_a1)**2 + (da2 * err_a2)**2 + (da3 * err_a3)**2 + (dI * err_I)**2)
 
 
-m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
+#_________________________Konstanten_______________________
+epsilon = 0.953
+err_epsilon = 0.0026
+L = 7*10**(-2)
+l = 0.455
+a = 2.5 * 10**-(3)
+k = 1.381 * 10**(-23)
+T = np.mean(Tlist)
 
-print(m)           
+c = 1.5659e-2
+a1 = 0.6113
+a2 = 0.5146
+a3 = -0.3907
+
+
+#__________________________Fit__________________________
+
+def f(x, alpha, b):
+    return x*alpha + b
+
+fitparam, cov = curve_fit(f, B, q, sigma = err_q , p0 = [0.00808425613302,-0.00034293204896])
+alpha, b = fitparam
+
+#alpha,b = np.polyfit(B, q, 1)           #alpha = Steigung, b = y-Achsenabschnitt
+#m2,b2 = np.polyfit(B2, q2, 1)
+
+
+
+#__________________________Unsicherheiten_________________
+err_L = 0.1e-3
+err_l = 2e-3
+err_T = np.std(Tlist)
+err_epsilon = 0.0026
+err_alpha = np.sqrt(cov[0:1,0:1])
+err_a = 0.1e-3
+err_I = 0
+
+err_c = 2.7819e-3
+err_a1 = 2.0927e-2
+err_a2 = 4.1541e-2
+err_a3 = 2.2721e-2
+
+
+#__________________________Plot_________________________
+err_B = []
+for i in I:
+    ub = uB(c,a1,a2,a3,i,err_c, err_a1, err_a2, err_a3, err_I)
+    err_B.append(ub)
+err_B = np.array(err_B)
+
+
+plt.figure()
+plt.plot(B,alpha*B+b)
+plt.errorbar(B,q,xerr=err_B,  fmt='x')
+#plt.plot(B2,m2*B2+b2)
+plt.xlabel("Magnet Feld")
+plt.ylabel("q")
+plt.show()
+
+
+
+
+
+m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
+um = um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L)
+print(m, um)           
