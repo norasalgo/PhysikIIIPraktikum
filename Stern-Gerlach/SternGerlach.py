@@ -171,6 +171,7 @@ plt.errorbar(B,q,xerr=err_B,  fmt='x')
 #plt.plot(B2,m2*B2+b2)
 plt.xlabel("Magnet Feld")
 plt.ylabel("q")
+plt.savefig("Fit", dpi=300)
 plt.show()
 
 
