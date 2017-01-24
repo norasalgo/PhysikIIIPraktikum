@@ -180,4 +180,4 @@ plt.show()
 
 m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
 um = um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L)
-print(m, um)           
+print(m,um)           
