@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 farbe = 1
 
-print ''
+print ('')
 
 if farbe == 1:
     lam0 = 585.249e-9
@@ -24,7 +24,7 @@ if farbe == 1:
     dn = -49246.8
     udn = 2767.9
     
-    print 'Farbe: Gelb'
+    print ('Farbe: Gelb')
     A2plus = np.array([11.35, 11.36, 11.31, 11.29])*10**(-3)
     A2 = np.array([11.26, 11.16, 11.14, 11.13])*10**(-3)
     A2minus = np.array([10.86, 10.87, 10.77, 10.8])*10**(-3)
@@ -44,7 +44,7 @@ elif farbe == 0:
     dn = -61487.9
     udn = 2257.1
     
-    print 'Farbe: Blau-Grün' 
+    print ('Farbe: Blau-Grün' )
     A2plus = np.array([11.14, 11.07, 11.06, 11.05])*10**(-3)
     A2 = np.array([10.91, 10.85, 10.9, 10.86])*10**(-3)
     A2minus = np.array([10.6, 10.58, 10.54, 10.53])*10**(-3)
@@ -70,7 +70,7 @@ stdUplus = np.std(Uplus)
 stdUminus = np.std(Uminus)
 
 U = (meanUplus+meanUminus) / 2
-uU = stdUplus
+uU = (meanUplus-meanUminus) / 2
 
 
 """Drehachse in cm"""
@@ -320,35 +320,34 @@ ug2 = ug(deltanu2,muB,B,deltamj,unu2,uB)
 
 #-------------------------Print---------------------
 
-print ''
-print 'Theta0+: (', '%.3f' % (theta0plus*180/np.pi), '+/-', '%.3f' % (utheta0plus*180/np.pi), ') °C'
-print 'Theta0: (', '%.3f' % (theta0*180/np.pi), '+/-', '%.3f' % (utheta0*180/np.pi), ') °C'
-print 'Theta0-: (', '%.3f' % (theta0minus*180/np.pi), '+/-', '%.3f' % (utheta0minus*180/np.pi), ') °C'
-print 'Theta1+: (', '%.3f' % (theta1plus*180/np.pi), '+/-', '%.3f' % (utheta1plus*180/np.pi), ') °C'
-print 'Theta1: (', '%.3f' % (theta1*180/np.pi), '+/-', '%.3f' % (utheta1*180/np.pi), ') °C'
-print 'Theta1-: (', '%.3f' % (theta1minus*180/np.pi), '+/-', '%.3f' % (utheta1minus*180/np.pi), ') °C'
-print 'Theta2+: (', '%.3f' % (theta2plus*180/np.pi), '+/-', '%.3f' % (utheta2plus*180/np.pi), ') °C'
-print 'Theta2: (', '%.3f' % (theta2*180/np.pi), '+/-', '%.3f' % (utheta2*180/np.pi), ') °C'
-print 'Theta2-: (', '%.3f' % (theta2minus*180/np.pi), '+/-', '%.3f' % (utheta2minus*180/np.pi), ') °C'
+print ('')
+print ('Theta0+: (', '%.3f' % (theta0plus*180/np.pi), '+/-', '%.3f' % (utheta0plus*180/np.pi), ') °C')
+print ('Theta0: (', '%.3f' % (theta0*180/np.pi), '+/-', '%.3f' % (utheta0*180/np.pi), ') °C')
+print ('Theta0-: (', '%.3f' % (theta0minus*180/np.pi), '+/-', '%.3f' % (utheta0minus*180/np.pi), ') °C')
+print ('Theta1+: (', '%.3f' % (theta1plus*180/np.pi), '+/-', '%.3f' % (utheta1plus*180/np.pi), ') °C')
+print ('Theta1: (', '%.3f' % (theta1*180/np.pi), '+/-', '%.3f' % (utheta1*180/np.pi), ') °C')
+print ('Theta1-: (', '%.3f' % (theta1minus*180/np.pi), '+/-', '%.3f' % (utheta1minus*180/np.pi), ') °C')
+print ('Theta2+: (', '%.3f' % (theta2plus*180/np.pi), '+/-', '%.3f' % (utheta2plus*180/np.pi), ') °C')
+print ('Theta2: (', '%.3f' % (theta2*180/np.pi), '+/-', '%.3f' % (utheta2*180/np.pi), ') °C')
+print ('Theta2-: (', '%.3f' % (theta2minus*180/np.pi), '+/-', '%.3f' % (utheta2minus*180/np.pi), ') °C')
 
-print ''
-print 'Ordnung M0: (', '%.1f' % M0, '+/-', '%.1f' % uM0, ')'
-print 'Ordnung M1: (', '%.1f' % M1, '+/-', '%.1f' % uM1, ')'
-print 'Ordnung M2: (', '%.1f' % M2, '+/-', '%.1f' % uM2, ')'
+print ('')
+print ('Ordnung M0: (', '%.1f' % M0, '+/-', '%.1f' % uM0, ')')
+print ('Ordnung M1: (', '%.1f' % M1, '+/-', '%.1f' % uM1, ')')
+print ('Ordnung M2: (', '%.1f' % M2, '+/-', '%.1f' % uM2, ')')
 
-print ''
-print 'Delta nu (M0): (', '%.2f' % (-deltanu0/1e9), '+/-', '%.2f' % (unu0/1e9), ') GHz'
-print 'Delta nu (M1): (', '%.2f' % (-deltanu1/1e9), '+/-', '%.2f' % (unu1/1e9), ') GHz'
-print 'Delta nu (M2): (', '%.2f' % (-deltanu2/1e9), '+/-', '%.2f' % (unu2/1e9), ') GHz'
+print ('')
+print ('Delta nu (M0): (', '%.2f' % (-deltanu0/1e9), '+/-', '%.2f' % (unu0/1e9), ') GHz')
+print ('Delta nu (M1): (', '%.2f' % (-deltanu1/1e9), '+/-', '%.2f' % (unu1/1e9), ') GHz')
+print ('Delta nu (M2): (', '%.2f' % (-deltanu2/1e9), '+/-', '%.2f' % (unu2/1e9), ') GHz')
 
-print ''
-print 'B-Feld: (', '%.3f' % (B), '+/-', '%.3f' % (uB), ') T'
+print ('B-Feld: (', '%.3f' % (B), '+/-', '%.3f' % (uB), ') T')
 
-print ''
-print 'Landé-Faktor (M0): (', '%.3f' % (-lande0), '+/-', '%.3f' % (ug0), ')'
-print 'Landé-Faktor (M1): (', '%.3f' % (-lande1), '+/-', '%.3f' % (ug1), ')'
-print 'Landé-Faktor (M2): (', '%.3f' % (-lande2), '+/-', '%.3f' % (ug2), ')'
-print ''
+print ('')
+print ('Landé-Faktor (M0): (', '%.3f' % (-lande0), '+/-', '%.3f' % (ug0), ')')
+print ('Landé-Faktor (M1): (', '%.3f' % (-lande1), '+/-', '%.3f' % (ug1), ')')
+print ('Landé-Faktor (M2): (', '%.3f' % (-lande2), '+/-', '%.3f' % (ug2), ')')
+print ('')
 
 
 
