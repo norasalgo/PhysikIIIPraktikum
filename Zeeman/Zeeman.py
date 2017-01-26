@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 #-------------------------Farbe---------------------
 #Gelb=1, Blau=0
 
-farbe = 1
+farbe = 0
 
 print ('')
 
