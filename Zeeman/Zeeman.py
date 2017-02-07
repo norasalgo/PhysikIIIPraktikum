@@ -111,6 +111,11 @@ def gj(deltanu,B,h,muB,deltamj):
     return (h*deltanu)/(muB*B*deltamj)
 
 
+"""Spannung Gaussverteilungen"""
+def gauss(x,mu,sigma):
+    return 1/(sigma*np.sqrt(2*np.pi))*np.exp(-(x-mu)**2/(2*sigma**2))
+
+
 
 #-----------Berechnungen----------
 
@@ -350,4 +355,16 @@ print ('Landé-Faktor (M2): (', '%.3f' % (-lande2), '+/-', '%.3f' % (ug2), ')')
 print ('')
 
 
+#-------------------------Plot---------------------
+
+"""Gaussverteilung für Messungen mit Spulenorientierung O1, und umgekehrter Spulenorientierung O2"""
+xarr = np.linspace(4.0,4.5,1000)
+plt.figure()
+plt.plot(xarr,gauss(xarr,meanUplus,stdUplus),c='b',label='O1')
+plt.plot(xarr,gauss(xarr,meanUminus,stdUminus),c='g',label='O2')
+plt.xlabel('Induzierte Spannung V [V]')
+plt.ylabel('Wahrscheinlichkeitsdichte p(x) []')
+plt.xlim([4.15,4.40])
+#plt.savefig('spannung.jpg',dpi=400)
+plt.legend()
 
