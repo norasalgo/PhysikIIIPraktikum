@@ -70,7 +70,10 @@ stdUplus = np.std(Uplus)
 stdUminus = np.std(Uminus)
 
 U = (meanUplus+meanUminus) / 2
-uU = (meanUplus-meanUminus) / 2
+systU = np.abs(meanUplus-meanUminus)/2.
+stdUupper = np.sqrt(systU**2+stdUplus**2)
+stdUlower = np.sqrt(systU**2+stdUminus**2)
+uU = max(stdUupper,stdUlower)
 
 
 """Drehachse in cm"""
@@ -359,12 +362,16 @@ print ('')
 
 """Gaussverteilung für Messungen mit Spulenorientierung O1, und umgekehrter Spulenorientierung O2"""
 xarr = np.linspace(4.0,4.5,1000)
+xarrO2 = np.linspace(4.0,U,1000)
+xarrO1 = np.linspace(U,4.5,1000)
 plt.figure()
 plt.plot(xarr,gauss(xarr,meanUplus,stdUplus),c='b',label='O1')
 plt.plot(xarr,gauss(xarr,meanUminus,stdUminus),c='g',label='O2')
+plt.plot(xarrO2,1.0815*gauss(xarrO2,U,stdUupper),c='r',label='V')
+plt.plot(xarrO1,0.9275*gauss(xarrO1,U,stdUlower),c='r')
+plt.axvline(U,ls=':',lw=2, color='#A4A4A4')
 plt.xlabel('Induzierte Spannung V [V]')
 plt.ylabel('Wahrscheinlichkeitsdichte p(x) []')
 plt.xlim([4.15,4.40])
-#plt.savefig('spannung.jpg',dpi=400)
 plt.legend()
-
+#plt.savefig('spannung.jpg',dpi=400)
