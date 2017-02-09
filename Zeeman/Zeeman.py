@@ -324,6 +324,13 @@ ug0 = ug(deltanu0,muB,B,deltamj,unu0,uB)
 ug1 = ug(deltanu1,muB,B,deltamj,unu1,uB)
 ug2 = ug(deltanu2,muB,B,deltamj,unu2,uB)
 
+if farbe == 1:
+    lande = np.mean([lande0,lande1,lande2])
+    ug = np.sqrt(ug0**2+ug1**2+ug2**2)
+    
+elif farbe == 0: #ignoriere letzten Messwert
+    lande = np.mean([lande0,lande1,lande2])
+    ug = np.sqrt(ug0**2+ug1**2+ug2**2)
 
 
 #-------------------------Print---------------------
@@ -356,7 +363,8 @@ print ('Landé-Faktor (M0): (', '%.3f' % (-lande0), '+/-', '%.3f' % (ug0), ')')
 print ('Landé-Faktor (M1): (', '%.3f' % (-lande1), '+/-', '%.3f' % (ug1), ')')
 print ('Landé-Faktor (M2): (', '%.3f' % (-lande2), '+/-', '%.3f' % (ug2), ')')
 print ('')
-
+print ('Landé-Faktor Mittelwert: (', '%.3f' % (-lande), '+/-', '%.3f' % (ug), ')')
+print ('')
 
 #-------------------------Plot---------------------
 
