@@ -59,22 +59,22 @@ B=np.array(B)
  
 """Ableitungen"""
 def dmdalpha(alpha,a,k,T,epsilon,l,L):
-    return 2*a*k*T/(epsilon*l*L*(1-l/(2*L)))
+    return -2*a*k*T/(epsilon*l*L*(1-l/(2*L)))*1/alpha**2
 
 def dmda(alpha,a,k,T,epsilon,l,L):
-    return 2*alpha*k*T/(epsilon*l*L*(1-l/(2*L)))
+    return 2*k*T/(epsilon*l*L*(1-l/(2*L))*alpha)
 
 def dmdT(alpha,a,k,T,epsilon,l,L):
-    return 2*alpha*a*k/(epsilon*l*L*(1-l/(2*L)))
+    return 2*a*k/(epsilon*l*L*(1-l/(2*L))*alpha)
 
 def dmdepsilon(alpha,a,k,T,epsilon,l,L):
-    return -2*alpha*a*k*T/(epsilon**2*l*L*(1-l/(2*L)))
+    return -2*a*k*T/(epsilon**2*l*L*(1-l/(2*L))*alpha)
 
 def dmdl(alpha,a,k,T,epsilon,l,L):
-    return 8*alpha*a*k*T*(l-L)/(epsilon*l**2*(2*L-l)**2)
+    return 8*a*k*T*(l-L)/(epsilon*l**2*(2*L-l)**2*alpha)
 
 def dmdL(alpha,a,k,T,epsilon,l,L):
-    return -8*alpha*a*k*T/(epsilon*l*(2*L-l)**2)
+    return -8*a*k*T/(alpha*epsilon*l*(2*L-l)**2)
 
 def dBdc():
     return  1
@@ -90,6 +90,7 @@ def dBda3(I):
     
 def dBdI(a1,a2,a3,I):
     return a1 + 2*a2*I + 3*a3*I**2
+    
     
 
 """Fehler auf m"""
@@ -128,26 +129,12 @@ a1 = 0.6113
 a2 = 0.5146
 a3 = -0.3907
 
-
-#__________________________Fit__________________________
-
-def f(x, alpha, b):
-    return x*alpha + b
-
-fitparam, cov = curve_fit(f, B, q, sigma = err_q , p0 = [0.00808425613302,-0.00034293204896])
-alpha, b = fitparam
-
-#alpha,b = np.polyfit(B, q, 1)           #alpha = Steigung, b = y-Achsenabschnitt
-#m2,b2 = np.polyfit(B2, q2, 1)
-
-
-
 #__________________________Unsicherheiten_________________
 err_L = 0.1e-3
 err_l = 2e-3
 err_T = np.std(Tlist)
 err_epsilon = 0.0026
-err_alpha = np.sqrt(cov[0:1,0:1])
+
 err_a = 0.1e-3
 err_I = 0
 
@@ -156,8 +143,7 @@ err_a1 = 2.0927e-2
 err_a2 = 4.1541e-2
 err_a3 = 2.2721e-2
 
-
-#__________________________Plot_________________________
+#__________________________Fit,Plot_________________________
 err_B = []
 for i in I:
     ub = uB(c,a1,a2,a3,i,err_c, err_a1, err_a2, err_a3, err_I)
@@ -165,19 +151,31 @@ for i in I:
 err_B = np.array(err_B)
 
 
+
+def f(x, alpha, b):
+    return x*alpha + b
+
+fitparam, cov = curve_fit(f, q, B, sigma = err_B , p0 = [0.00808425613302,-0.00034293204896])
+alpha, b = fitparam
+
+err_alpha = np.sqrt(cov[0:1,0:1])
+
+
+
+
 plt.figure()
-plt.plot(B,alpha*B+b)
-plt.errorbar(B,q,xerr=err_B,  fmt='x')
+plt.plot(q,alpha*q+b)
+plt.errorbar(q,B,yerr=err_B,  fmt='x')
 #plt.plot(B2,m2*B2+b2)
-plt.xlabel("Magnet Feld")
-plt.ylabel("q")
-plt.savefig("Fit", dpi=300)
+plt.ylabel("Magnet Feld")
+plt.xlabel("q")
+#plt.savefig("Fit", dpi=300)
 plt.show()
 
 
 
 
 
-m = alpha*a*k*T*2/(epsilon*l*L*(1-L/(2*l))) 
+m = a*k*T*2/(alpha*epsilon*l*L*(1-L/(2*l))) 
 um = um(alpha,a,k,T,epsilon,l,L,err_alpha,err_a,err_T,err_epsilon,err_l,err_L)
-print(m,um)           
+print(m, um, um+m)
